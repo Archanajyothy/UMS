@@ -1,0 +1,81 @@
+<div class="main">
+  <div class="container">
+      <div class="card-header">
+          <h1>Create Account</h1>
+      </div>
+      <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+      <div class="form-body">
+              <div class="name">
+                  <mat-form-field class="input-field inputs">
+                      <input matInput placeholder="Enter first Name" formControlName="firstName">
+                  </mat-form-field>
+                  <span style="color: red;" *ngIf="registerForm.get('firstName')!.invalid && (registerForm.get('firstName')?.dirty || registerForm.get('firstName')?.touched)" >
+                    <small class="text-danger"
+                    *ngIf="registerForm.get('firstName')!.hasError('required')">
+                        Required field</small>
+                </span>
+                  <mat-form-field class="input-field inputs">
+                      <input matInput placeholder="Enter last Name" formControlName="lastName">
+                  </mat-form-field>
+                  <span style="color: red;" *ngIf="registerForm.get('lastName')!.invalid && (registerForm.get('lastName')?.dirty || registerForm.get('lastName')?.touched)" >
+                    <small class="text-danger"
+                    *ngIf="registerForm.get('lastName')!.hasError('required')">
+                        Required field</small>
+                </span>
+              </div>
+              <mat-form-field class="input-field">
+                  <input matInput type="email" placeholder="Enter email address" formControlName="email">
+              </mat-form-field>
+              <span style="color: red;" *ngIf="registerForm.get('email')!.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)" >
+                <small class="text-danger"
+                *ngIf="registerForm.get('email')!.hasError('required')">
+                    Required field</small>
+            </span>
+            <span style="color: red;" *ngIf="registerForm.get('email')!.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)" >
+                <small class="text-danger"
+                *ngIf="registerForm.get('email')!.hasError('email')">
+                    Enter valid email</small>
+            </span>
+              <div class="name">
+                  <mat-form-field class="input-field inputs">
+                      <input matInput placeholder="Enter password" formControlName="password">
+                  </mat-form-field>
+                  <span style="color: red;" *ngIf="registerForm.get('password')!.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)" >
+                    <small class="text-danger"
+                    *ngIf="registerForm.get('password')!.hasError('required')">
+                        Required field</small>
+                  </span>
+                  <mat-form-field class="input-field inputs">
+                      <input matInput placeholder="Confirm password" formControlName="cpassword">
+                  </mat-form-field>
+                  <span style="color: red;" *ngIf="registerForm.get('cpassword')!.invalid && (registerForm.get('cpassword')?.dirty || registerForm.get('cpassword')?.touched)" >
+                    <small class="text-danger"
+                    *ngIf="registerForm.get('cpassword')!.hasError('required')">
+                        Required field</small>
+                  </span>
+              </div>
+              <mat-form-field class="input-field">
+                  <mat-label>Role</mat-label>
+                  <mat-select formControlName="role">
+                      <mat-option value="admin">Admin</mat-option>
+                      <mat-option value="agent">Agent</mat-option>
+                      <mat-option value="supervisor">Supervisor</mat-option>
+                  </mat-select>
+                  <span style="color: red;" *ngIf="registerForm.get('role')!.invalid && (registerForm.get('role')?.dirty || registerForm.get('role')?.touched)" >
+                    <small class="text-danger"
+                    *ngIf="registerForm.get('role')!.hasError('required')">
+                        Required field</small>
+                  </span>
+              </mat-form-field>
+              <button mat-raised-button color="primary" class="register-btn" type="submit" [disabled]="registerForm.invalid">Create Account</button>
+      </div>
+    </form>
+      <div class="card-footer">
+          <a href="">Have an account? Go to login</a>
+      </div>
+  </div>
+</div>
+
+
+
+
