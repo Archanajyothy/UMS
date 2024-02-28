@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes} from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 const routes: Routes = [
 
@@ -14,6 +15,10 @@ const routes: Routes = [
     path:'signup',
     component: RegisterComponent
   },
+  {
+    path:'forgotpassword',
+    component: ForgotPasswordComponent
+  }
 ]
 
 @NgModule({

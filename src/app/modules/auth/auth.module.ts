@@ -6,15 +6,18 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
-
-
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../../services/auth.interceptor';
+import { HeaderComponent } from '../../components/header/header.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    HeaderComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     CommonModule,
@@ -22,8 +25,11 @@ import { MaterialModule } from '../material/material.module';
     AuthRoutingModule,
     RouterModule,
     ReactiveFormsModule,
-    MaterialModule,
-  
-  ]
+    MaterialModule,  
+  ],
+  providers: [{
+    provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor,
+    multi: true
+  },]
 })
 export class AuthModule { }

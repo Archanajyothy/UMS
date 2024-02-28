@@ -1,0 +1,23 @@
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="side" [opened]="opened" >sidenav</mat-sidenav>
+    <mat-nav-list>
+      <button mat-button (click)="openDialog()">Add User</button>
+    </mat-nav-list>
+  <!-- <mat-sidenav-content>   Main
+    <button (click)="sidenav.toggle()">Toggle</button>
+  </mat-sidenav-content> -->
+</mat-sidenav-container>
+
+  
+<!-- sidebar -->
+<!-- <mat-sidenav-container>
+  <mat-sidenav #sidenav mode="side" >sidenav
+    <mat-nav-list>
+      <mat-list-item class="items" (click)="navigateToReg(); sidenav.close()">Register</mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-table></app-table>
+  </mat-sidenav-content>
+  <app-table></app-table>
+</mat-sidenav-container> -->

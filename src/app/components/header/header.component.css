@@ -1,0 +1,74 @@
+/* navbar.component.css */
+
+/* Adjust navbar height and padding */
+.mat-toolbar {
+  height: 64px; /* Adjust height as needed */
+  padding: 0 16px;
+}
+
+/* Center brand text vertically */
+.navbar-brand {
+  line-height: 64px; /* Should match the navbar height */
+}
+
+/* Style collapsed content */
+.collapse {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.bg-dark {
+  background-color: #343a40; /* Adjust background color as needed */
+  color: #fff; /* Adjust text color as needed */
+}
+
+/* Style collapsed content card */
+.bg-dark .mat-card {
+  background-color: #343a40; /* Adjust background color as needed */
+  color: #fff; /* Adjust text color as needed */
+  width: 100%; /* Adjust width as needed */
+}
+
+/* Style collapsed content card title */
+.bg-dark .mat-card-title {
+  color: #fff; /* Adjust text color as needed */
+}
+
+/* Style collapsed content card content */
+.bg-dark .mat-card-content {
+  color: #ccc; /* Adjust text color as needed */
+}
+
+.nav{
+  background: #343a40;
+  display: flex;
+  justify-content: space-between;
+}
+
+mat-icon{
+  padding-left: 60px;
+}
+.icon{
+  background: rgb(32, 88, 243);
+  width: 5px;
+  margin-left: 10px;
+}
+.search-box {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  border-radius: 10px;
+  height: 5px;
+  margin-right: 40px;
+}
+
+.spacer {
+  flex: 1; /* Add flexible space to push search box to the right */
+}
+
+.searchInput{
+  border-radius: 10px;
+}

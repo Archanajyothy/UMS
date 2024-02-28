@@ -1,0 +1,13 @@
+mat-sidenav-container{
+  height: 100%;
+}
+
+mat-sidenav, mat-sidenav-content {
+  padding: 16px;
+}
+
+mat-sidenav{
+  background-color: rgb(32, 31, 31);
+  width: 200px;
+  color: white;
+}

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container1">
     <div class="login-container">
       <div class="card-header">
         <h1>Login</h1>
@@ -6,15 +6,42 @@
       <form class="login-form" [formGroup]="loginForm" (ngSubmit)="submitForm()">
         <mat-form-field class="input-group">
           <mat-label>Username:</mat-label>
-          <input matInput formControlName="username" class="inputs" id="username" placeholder="Enter your username" required>
+          <input matInput formControlName="email" class="inputs" id="username" placeholder="Enter your username" required>
         </mat-form-field>
+        <span style="color: red;" *ngIf="loginForm.get('email')!.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)" >
+          <small class="text-danger"
+          *ngIf="loginForm.get('email')!.hasError('required')">
+              Required field</small>
+      </span>
+      <span style="color: red;" *ngIf="loginForm.get('email')!.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)" >
+          <small class="text-danger"
+          *ngIf="loginForm.get('email')!.hasError('email')">
+              Enter valid email</small>
+      </span>
         <mat-form-field class="input-group">
           <mat-label>Password:</mat-label>
-          <input matInput formControlName="password" id="password" type="password" placeholder="Enter your password" required>
+          <input matInput formControlName="password" id="password" [type]="hide ? 'password' : 'text'" placeholder="Enter your password" required>
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </mat-form-field>
+        <span style="color: red;" *ngIf="loginForm.get('password')!.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" >
+          <small class="text-danger"
+          *ngIf="loginForm.get('password')!.hasError('required')">
+              Required field</small>
+        </span>
+        <span style="color: red;" *ngIf="loginForm.get('password')!.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" >
+          <small class="text-danger"
+          *ngIf="loginForm.get('password')!.hasError('minlength')">
+              Minimum 7 characters required</small>
+        </span>
+        <span style="color: red;" *ngIf="loginForm.get('password')!.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" >
+          <small class="text-danger"
+          *ngIf="loginForm.get('password')!.hasError('maxlength')">
+              Password is too long.</small>
+        </span>
+        <div class="errmsg" *ngIf="errorMessage" >{{ errorMessage }}</div>
         <div class="link">
-          <a href="#">Forgot password?</a>
-          <button mat-raised-button type="submit">Login</button>
+          <a [routerLink]="['forgotpassword']">Forgot password?</a>
+          <button mat-raised-button type="submit" style="background: #007bff; color: white;" [disabled]="loginForm.invalid">Login</button>
         </div>
       </form>
       <div class="card-footer">

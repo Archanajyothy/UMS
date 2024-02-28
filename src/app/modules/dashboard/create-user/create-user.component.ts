@@ -1,21 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.css',
-  
+  selector: 'app-create-user',
+  templateUrl: './create-user.component.html',
+  styleUrl: './create-user.component.css'
 })
-export class RegisterComponent {
+export class CreateUserComponent {
+  errorMessage = ''
   apiUrl = '/admin/users'
-  errorMessage: string = ''
   token = localStorage.getItem('token')
+  constructor(private dialogRef: MatDialogRef<CreateUserComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: any,private fb : FormBuilder, private auth: AuthService){}
 
-  constructor(private fb: FormBuilder, private auth: AuthService){}
-
-  registerForm = this.fb.group({
+  addUserForm = this.fb.group({
     firstName : ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]],
     lastName : ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]],
     email : ['', [Validators.required, Validators.pattern(/^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/)]],
@@ -24,19 +24,18 @@ export class RegisterComponent {
     cpassword: ['', [Validators.required]]
   })
 
-  onRegister(){
-    if(this.registerForm.valid && this.token !== null){
-      const signUpData = { 
-        firstName : this.registerForm.controls.firstName.value,
-        lastName : this.registerForm.controls.lastName.value,
-        email : this.registerForm.controls.email.value,
-        role : this.registerForm.controls.role.value,
-        password : this.registerForm.controls.password.value,
-        // confirmPw : this.registerForm.controls.cpassword.value
+  onSubmit() {
+    if(this.addUserForm.valid && this.token !== null){
+      const UserData = { 
+        firstName : this.addUserForm.controls.firstName.value,
+        lastName : this.addUserForm.controls.lastName.value,
+        email : this.addUserForm.controls.email.value,
+        role : this.addUserForm.controls.role.value,
+        password : this.addUserForm.controls.password.value,
+        // confirmPw : this.addUserForm.controls.cpassword.value
       }
-      this.auth.postData(signUpData, this.apiUrl, this.token).subscribe((res: any)=>{
+      this.auth.postData(UserData, this.apiUrl, this.token).subscribe((res: any)=>{
         console.log(res);
-        
       },
       (error) => {
         if (error.status === 400) {
@@ -57,9 +56,7 @@ export class RegisterComponent {
           this.errorMessage = 'An error occurred';
         }
       })
-      console.log(signUpData);
+    this.dialogRef.close(UserData);
     }
-    this.registerForm.reset()
   }
-
 }
