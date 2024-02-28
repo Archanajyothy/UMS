@@ -9,9 +9,11 @@ import { AuthService } from '../../../services/auth.service';
   
 })
 export class RegisterComponent {
-  apiUrl = '/admin/users'
+  apiUrl = '/agents'
   errorMessage: string = ''
-  token = localStorage.getItem('token')
+  hide: boolean = true;
+  hide2: boolean = true;
+  // token = localStorage.getItem('token')
 
   constructor(private fb: FormBuilder, private auth: AuthService){}
 
@@ -25,27 +27,21 @@ export class RegisterComponent {
   })
 
   onRegister(){
-    if(this.registerForm.valid && this.token !== null){
+    if(this.registerForm.valid){
       const signUpData = { 
         firstName : this.registerForm.controls.firstName.value,
         lastName : this.registerForm.controls.lastName.value,
         email : this.registerForm.controls.email.value,
-        role : this.registerForm.controls.role.value,
         password : this.registerForm.controls.password.value,
-        // confirmPw : this.registerForm.controls.cpassword.value
       }
-      this.auth.postData(signUpData, this.apiUrl, this.token).subscribe((res: any)=>{
+      this.auth.postData(signUpData, this.apiUrl).subscribe((res: any)=>{
         console.log(res);
         
       },
       (error) => {
-        if (error.status === 400) {
-          this.errorMessage = 'Missing token';
-        } else if (error.status === 401) {
-          this.errorMessage = 'Invalid token';
-        } else if (error.status === 403) {
-          this.errorMessage = 'Admin authorization failed';
-        }  else if (error.status === 404) {
+        if (error.status === 401) {
+          this.errorMessage = 'Unauthorized';
+        }else if (error.status === 404) {
           this.errorMessage = 'Path is incorrect';
         }  else if (error.status === 405) {
           this.errorMessage = 'Method is not allowed';
@@ -53,6 +49,8 @@ export class RegisterComponent {
           this.errorMessage = 'Email has already been registered';
         }  else if (error.status === 422) {
           this.errorMessage = 'Validation failed';
+        } else if (error.status === 500) {
+          this.errorMessage = 'Internal server error';
         } else {
           this.errorMessage = 'An error occurred';
         }

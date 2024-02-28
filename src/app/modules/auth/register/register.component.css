@@ -101,6 +101,10 @@ h1{
     align-items: center;
   }
 
+  mat-icon{
+    color: gray;
+  }
+
   @media (max-width: 575.98px){ 
     .container1 {
       display: flex;
