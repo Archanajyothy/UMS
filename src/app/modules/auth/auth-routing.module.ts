@@ -4,12 +4,13 @@ import { RouterModule, Routes} from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { loginGuard } from '../../services/guards/login.guard';
 
 const routes: Routes = [
 
   {
     path:'',
-    component: LoginComponent
+    component: LoginComponent //, canActivate : [loginGuard]
   },
   {
     path:'signup',

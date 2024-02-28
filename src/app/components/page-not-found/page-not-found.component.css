@@ -1,8 +1,31 @@
-.container{
+.container1{
     background: white;
     position: relative;
     width: 100%;
-    background: navy;
+    height: 100vh;
+}
+.txt1{
+    position: absolute;
+    font-size: 60px;
+    font-family: 'Courier New', Courier, monospace;
+    margin-top: 180px;
+    margin-left: 200px;
+}
+.txt2{
+    position: absolute;
+    font-size: 40px;
+    font-family: 'Courier New', Courier, monospace;
+    margin-top: 250px;
+    margin-left: 170px;
+}
+.span1{
+    color: rgb(224, 123, 76);
+}
+.span2{
+    color: rgb(238, 72, 22);
+}
+.span3{
+    color: rgb(248, 35, 6);
 }
 img{
     position: absolute;
@@ -11,4 +34,12 @@ img{
     justify-content: center;
     width: 300px;
     height: 300px;
+    margin-left: 700px;
+    margin-top: 50px;
+    animation: moveImage 2s infinite alternate;
 }
+
+@keyframes moveImage {
+    from { margin-top: 50px; } /* start */
+    to { margin-top: 90px; }  /* end */
+  }

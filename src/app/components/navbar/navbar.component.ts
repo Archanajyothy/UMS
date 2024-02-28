@@ -22,10 +22,6 @@ export class NavbarComponent {
     });
   }
 
-  // navigateToReg() {
-  //   this.router.navigate(['/signup']);
-  // }
-
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
