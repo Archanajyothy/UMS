@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
@@ -24,19 +24,31 @@ export class RegisterComponent {
     role: ['',[Validators.required]],
     password: ['',[Validators.required]],
     cpassword: ['', [Validators.required]]
+  }, {
+    validators: this.passwordMatchValidator 
   })
+
+  passwordMatchValidator(form: FormGroup) {
+    const password1 = form.get('password')
+    const password2 = form.get('cpassword')
+    if (password1 && password2 && password1.value !== password2.value && password2.value !== '') {
+      password2?.setErrors({ passwordMismatch: true })
+    } else {
+      // password2?.setErrors(null)
+    }
+
+  }
 
   onRegister(){
     if(this.registerForm.valid){
       const signUpData = { 
-        firstName : this.registerForm.controls.firstName.value,
-        lastName : this.registerForm.controls.lastName.value,
-        email : this.registerForm.controls.email.value,
-        password : this.registerForm.controls.password.value,
+        firstName : this.registerForm.controls['firstName'].value,
+        lastName : this.registerForm.controls['lastName'].value,
+        email : this.registerForm.controls['email'].value,
+        password : this.registerForm.controls['password'].value,
       }
       this.auth.postData(signUpData, this.apiUrl).subscribe((res: any)=>{
         console.log(res);
-        
       },
       (error) => {
         if (error.status === 401) {

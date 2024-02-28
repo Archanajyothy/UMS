@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, ValidatorFn, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 
@@ -18,7 +18,7 @@ export class LoginComponent {
 
    loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(10)]]
+    password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(30)]]
   })
 
   submitForm(){

@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthService } from '../../../services/auth.service';
 
@@ -12,6 +12,8 @@ export class CreateUserComponent {
   errorMessage = ''
   apiUrl = '/admin/users'
   token = localStorage.getItem('token')
+  hide1 = true;
+  hide2 = true;
   constructor(private dialogRef: MatDialogRef<CreateUserComponent>,
     @Inject(MAT_DIALOG_DATA) private data: any,private fb : FormBuilder, private auth: AuthService){}
 
@@ -22,16 +24,30 @@ export class CreateUserComponent {
     role: ['',[Validators.required]],
     password: ['',[Validators.required]],
     cpassword: ['', [Validators.required]]
-  })
+  },
+    {
+      validators: this.passwordMatchValidator 
+    })
+  
+    passwordMatchValidator(form: FormGroup) {
+      const password1 = form.get('password')
+      const password2 = form.get('cpassword')
+      if (password1 && password2 && password1.value !== password2.value && password2.value !== '') {
+        password2?.setErrors({ passwordMismatch: true })
+      } else {
+        // password2?.setErrors(null)
+      }
+  
+    }
 
   onSubmit() {
     if(this.addUserForm.valid && this.token !== null){
       const UserData = { 
-        firstName : this.addUserForm.controls.firstName.value,
-        lastName : this.addUserForm.controls.lastName.value,
-        email : this.addUserForm.controls.email.value,
-        role : this.addUserForm.controls.role.value,
-        password : this.addUserForm.controls.password.value,
+        firstName : this.addUserForm.controls['firstName'].value,
+        lastName : this.addUserForm.controls['lastName'].value,
+        email : this.addUserForm.controls['email'].value,
+        role : this.addUserForm.controls['role'].value,
+        password : this.addUserForm.controls['password'].value,
         // confirmPw : this.addUserForm.controls.cpassword.value
       }
       this.auth.postData(UserData, this.apiUrl, this.token).subscribe((res: any)=>{

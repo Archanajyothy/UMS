@@ -50,7 +50,8 @@
                   </span>
                 <div class="name1">
                     <mat-form-field class="input-field inputs1">
-                        <input matInput placeholder="Enter password" formControlName="password">
+                        <input matInput placeholder="Enter password" [type]="hide1 ? 'password' : 'text'" formControlName="password">
+                        <mat-icon matSuffix (click)="hide1 = !hide1">{{hide1 ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </mat-form-field>
                     <span style="color: red;" *ngIf="addUserForm.get('password')!.invalid && (addUserForm.get('password')?.dirty || addUserForm.get('password')?.touched)" >
                       <small class="text-danger"
@@ -58,7 +59,8 @@
                           Required field</small>
                     </span>
                     <mat-form-field class="input-field inputs1">
-                        <input matInput placeholder="Confirm password" formControlName="cpassword">
+                        <input matInput placeholder="Confirm password" [type]="hide2 ? 'password' : 'text'" formControlName="cpassword">
+                        <mat-icon matSuffix (click)="hide2 = !hide2">{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </mat-form-field>
                     <span style="color: red;" *ngIf="addUserForm.get('cpassword')!.invalid && (addUserForm.get('cpassword')?.dirty || addUserForm.get('cpassword')?.touched)" >
                       <small class="text-danger"

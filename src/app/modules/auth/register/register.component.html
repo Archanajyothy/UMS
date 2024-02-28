@@ -48,16 +48,16 @@
                 </span>
               <div class="name1">
                   <mat-form-field class="input-field inputs1">
-                      <input matInput type="password" placeholder="Enter password" formControlName="password">
+                      <input matInput [type]="hide ? 'password' : 'text'" placeholder="Enter password" formControlName="password">
                       <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                    </mat-form-field>
+                  </mat-form-field>
                   <span style="color: red;" *ngIf="registerForm.get('password')!.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)" >
                     <small class="text-danger"
                     *ngIf="registerForm.get('password')!.hasError('required')">
                         Required field</small>
                   </span>
                   <mat-form-field class="input-field inputs1">
-                      <input matInput type="password" placeholder="Confirm password" formControlName="cpassword">
+                      <input matInput [type]="hide2 ? 'password' : 'text'" placeholder="Confirm password" formControlName="cpassword">
                       <mat-icon matSuffix (click)="hide2 = !hide2">{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </mat-form-field>
                   <span style="color: red;" *ngIf="registerForm.get('cpassword')!.invalid && (registerForm.get('cpassword')?.dirty || registerForm.get('cpassword')?.touched)" >
@@ -65,7 +65,16 @@
                     *ngIf="registerForm.get('cpassword')!.hasError('required')">
                         Required field</small>
                   </span>
+                  <span style="color: red;" *ngIf="registerForm.get('cpassword')!.invalid && (registerForm.get('cpassword')?.dirty || registerForm.get('cpassword')?.touched)" >
+                    <small class="text-danger"
+                    *ngIf="registerForm.get('cpassword')!.hasError('passwordMismatch')">
+                        Password mismatch</small>
+                  </span>
               </div>
+              <div *ngIf="registerForm.hasError('passwordMismatch') && (registerForm.dirty || registerForm.touched)">
+                Passwords do not match
+              </div>
+              
               <mat-form-field class="input-field">
                   <mat-label>Role</mat-label>
                   <mat-select formControlName="role">
