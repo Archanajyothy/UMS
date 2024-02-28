@@ -9,10 +9,9 @@ import { CreateUserComponent } from '../../modules/dashboard/create-user/create-
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-
-  opened = false
-
   
+  @Output() toggle = new EventEmitter();
+
   constructor(private router: Router, public dialog: MatDialog) {}
 
   openDialog() {
@@ -31,5 +30,9 @@ export class NavbarComponent {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
     this.router.navigate(['']);
+  }
+
+  onToggled(){
+    this.toggle.emit();
   }
 }

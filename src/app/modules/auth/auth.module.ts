@@ -8,7 +8,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '../../services/auth.interceptor';
-import { HeaderComponent } from '../../components/header/header.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 
@@ -16,7 +15,6 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
   declarations: [
     LoginComponent,
     RegisterComponent,
-    HeaderComponent,
     ForgotPasswordComponent
   ],
   imports: [

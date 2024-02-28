@@ -1,12 +1,12 @@
 <nav class="navbar navbar-dark bg-dark">
     <a class="navbar-brand">Navbar</a>
-    <button class="navbar-toggler btns" type="button" (click)="sidenav.toggle()" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler btns" type="button" (click)="onToggled()" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <form class="d-flex searchForm" role="search">
       <div class="d-flex align-items-center"> 
         <input class="form-control input1" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success btn1" type="submit"><i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i></button>
+        <button class="btn btn-outline-success btn1" type="submit"><i class="fa-solid fa-magnifying-glass search1" style="color: #ffffff;"></i></button>
       </div>
       <div class="dList">
         <button class="btn btn-outline-light dropdown-toggle border-0" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -22,7 +22,7 @@
 </nav>
 
 <!-- sidebar -->
-<mat-sidenav-container>
+<!-- <mat-sidenav-container>
   <mat-sidenav #sidenav mode="side" >sidenav
     <mat-nav-list>
       <mat-list-item class="items" mat-button (click)="openDialog(); sidenav.close()">Add User</mat-list-item>
@@ -33,4 +33,4 @@
   </mat-sidenav-content>
   <app-table></app-table>
 
-</mat-sidenav-container>
+</mat-sidenav-container> -->

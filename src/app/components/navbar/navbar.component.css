@@ -6,6 +6,11 @@
     margin-left: 690px;
 }
 
+.btns{
+    animation: none;
+    outline: none;
+}
+
 .user {
     display: flex;
     padding-left: 35px;
@@ -14,6 +19,10 @@
 
 i {
     padding-top: 10px;
+}
+
+.search1{
+    margin-top: -5px;
 }
 
 .dropdown-toggle:hover {
@@ -54,7 +63,7 @@ mat-sidenav-container{
   }
   
   mat-sidenav{
-    background-color: rgb(32, 31, 31);
+    /* background-color: rgb(32, 31, 31); */
     width: 200px;
     color: white;
   }
