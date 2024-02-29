@@ -1,0 +1,14 @@
+.sidebar-container {
+    /* width: 200px; */
+    height: 100vh;
+}
+
+.sidebar{
+    background: black;
+    width: 200px;
+}
+
+
+.mat-drawer-content {
+    overflow-x: hidden;
+  }

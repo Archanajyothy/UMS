@@ -4,15 +4,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
 import { authGuard } from '../../services/guards/auth.guard';
+import { userGuardGuard } from '../../services/guards/user-guard.guard';
 
 const routes : Routes = [
   {
-    path:'',
+    path:'admin',
     component: HomeComponent, canActivate:[authGuard]
   },
   {
     path:'user',
-    component: UserComponent
+    component: UserComponent, canActivate: [userGuardGuard]
   }
 ]
 

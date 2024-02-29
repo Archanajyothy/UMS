@@ -72,7 +72,7 @@ export class CreateUserComponent {
           this.errorMessage = 'An error occurred';
         }
       })
-    this.dialogRef.close(UserData);
+    this.dialogRef.close(UserData); //for closing the modal
     }
   }
 }

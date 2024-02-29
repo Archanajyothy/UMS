@@ -19,7 +19,7 @@ export interface UserData {
 })
 export class TableComponent implements AfterViewInit, OnInit{
   userArray = []
-  displayedColumns: string[] = ['id', 'firstName', 'role', 'email'];
+  displayedColumns: string[] = ['id', 'firstName', 'email', 'role', 'edit' , 'delete'];
   dataSource = new MatTableDataSource<any>([this.userArray]);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -32,14 +32,36 @@ export class TableComponent implements AfterViewInit, OnInit{
       console.log(res);
       this.dataSource.data = res?.data?.users;
       console.log('from table');
-      console.log(this.dataSource);
-      
     });
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
+
+  deleteUser(userId: number): void {
+    if (this.token !== null && confirm('Are you sure you want to delete this user?')) {
+      this.auth.deleteUser(userId, this.token).subscribe(
+        (res) => {
+          console.log('User deleted successfully');
+          console.log(res);
+          if (res?.status === 'true') {
+            this.dataSource.data = this.dataSource.data.filter((user: any) => user.id !== userId);
+            // Refresh paginator after data change
+            this.dataSource.paginator?.firstPage();
+          } else {
+            console.error('User deletion failed');
+          }
+          
+        },
+        (error) => {
+          console.error('Error deleting user:', error);
+        }
+      );
+    }
 }
+
+}
+
 
 

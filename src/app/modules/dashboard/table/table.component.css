@@ -1,6 +1,6 @@
 .container1{
   display: flex;
-  margin-left: 150px;
+  margin-left: 100px;
   flex-direction: row;
   justify-content: center;
   width: 900px;
@@ -9,4 +9,17 @@
 
 table {
   width: 900px;
+}
+
+.fa-trash {
+  margin-left: 15px;
+}
+
+.fa-pen-to-square {
+  margin-left: 9px;
+}
+
+button {
+  border: none;
+  background: transparent;
 }

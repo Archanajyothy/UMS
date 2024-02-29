@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, ValidatorFn, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
@@ -8,13 +8,25 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   apiUrl= '/auth/login'
   hide: boolean = true;
   errorMessage: string = '';
 
   constructor(private fb: FormBuilder, private authService: AuthService, private route : Router){}
+
+  ngOnInit(): void {
+    const token = localStorage.getItem('token')
+    const role = localStorage.getItem('role')
+    if (token && (role === 'admin' || role === 'supervisor')) {
+      this.route.navigate(['dashboard/admin']);
+    } else if(token){
+      this.route.navigate(['dashboard/user']);
+    } else {
+      this.route.navigate([''])
+    }
+  }
 
    loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -32,7 +44,11 @@ export class LoginComponent {
           console.log(res);
           localStorage.setItem('token',res.data.user.accessToken)
           localStorage.setItem('role',res.data.user.role)
-          this.route.navigateByUrl('/dashboard')
+          if (res.data.user.accessToken && (res.data.user.role === 'admin' || res.data.user.role === 'supervisor')) {
+            this.route.navigate(['dashboard/admin']);
+          } else {
+            this.route.navigate(['dashboard/user']);
+          }
           
     },
     (error) => {

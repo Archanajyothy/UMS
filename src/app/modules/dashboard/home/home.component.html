@@ -4,8 +4,11 @@
     <mat-drawer class="sidebar" mode="side" [opened] = "sidebar">
         <app-sidebar></app-sidebar>
     </mat-drawer>
-    <mat-drawer-content>
+    <mat-drawer-content *ngIf="role === 'admin'">
         <app-table></app-table>
+    </mat-drawer-content>
+    <mat-drawer-content *ngIf="role === 'supervisor'">
+        <app-supervisor></app-supervisor>
     </mat-drawer-content>
 </mat-drawer-container>
 <!-- <div class="bodyDiv">

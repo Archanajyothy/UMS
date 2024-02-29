@@ -10,6 +10,7 @@ import { MaterialModule } from '../material/material.module';
 import { UserComponent } from './user/user.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SupervisorComponent } from './supervisor/supervisor.component';
 
 
 
@@ -20,7 +21,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     SidebarComponent,
     TableComponent,
     UserComponent,
-    CreateUserComponent
+    CreateUserComponent,
+    SupervisorComponent
   ],
   imports: [
     CommonModule,

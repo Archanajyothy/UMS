@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrl: './user.component.css'
 })
 export class UserComponent {
+  sidebar: boolean = true;
 
+  constructor() {}
+  
+  toggleSidebar(){
+    this.sidebar = !this.sidebar;
+  }
 }
