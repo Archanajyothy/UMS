@@ -14,17 +14,17 @@ export class SupervisorComponent {
   dataSource = new MatTableDataSource<any>([this.userArray]);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  apiUrl = '/supervisor/users'
-  token = localStorage.getItem('token')
+  token = localStorage.getItem('token') 
   constructor(private auth : AuthService){}
 
   ngOnInit(): void {
-    this.auth.getData(this.apiUrl, this.token).subscribe((res: any) => {
-      console.log(res);
-      this.dataSource.data = res?.data?.users;
-      console.log('from table');
-      console.log(this.dataSource);
-    });
+    //const supervisorUserId = localStorage.getItem('id'); 
+    const apiUrl = `/supervisor/users`    
+      this.auth.getData(apiUrl, this.token).subscribe((res: any) => {
+        console.log('from supervisor');
+        console.log(res);
+        this.dataSource.data = res?.data?.users; //assigning data for the table
+      });   
   }
 
   ngAfterViewInit() {

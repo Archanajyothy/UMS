@@ -14,31 +14,39 @@ export class CreateUserComponent {
   token = localStorage.getItem('token')
   hide1 = true;
   hide2 = true;
-  constructor(private dialogRef: MatDialogRef<CreateUserComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: any,private fb : FormBuilder, private auth: AuthService){}
+  editMode = false; // Flag to indicate if in edit mode or not
+  userId: number | undefined;
 
-  addUserForm = this.fb.group({
-    firstName : ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]],
-    lastName : ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]],
-    email : ['', [Validators.required, Validators.pattern(/^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/)]],
-    role: ['',[Validators.required]],
-    password: ['',[Validators.required]],
-    cpassword: ['', [Validators.required]]
-  },
-    {
-      validators: this.passwordMatchValidator 
-    })
+  constructor(private dialogRef: MatDialogRef<CreateUserComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: {element: any, editMode: boolean},
+    private fb : FormBuilder, private auth: AuthService){console.log(data,'from constructor');
   
-    passwordMatchValidator(form: FormGroup) {
-      const password1 = form.get('password')
-      const password2 = form.get('cpassword')
-      if (password1 && password2 && password1.value !== password2.value && password2.value !== '') {
-        password2?.setErrors({ passwordMismatch: true })
-      } else {
-        // password2?.setErrors(null)
+  }
+    
+    
+    addUserForm = this.fb.group({
+      firstName : [this.data?.element?.firstName, [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]],
+      lastName : [this.data?.element?.lastName, [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]],
+      email : [this.data?.element?.email, [Validators.required, Validators.pattern(/^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/)]],
+      role: [this.data?.element?.role,[Validators.required]],
+      password: ['',[Validators.required]],
+      cpassword: ['', [Validators.required]]
+    },
+      {
+        validators: this.passwordMatchValidator 
+      })
+  
+      passwordMatchValidator(form: FormGroup) {
+        const password1 = form.get('password')
+        const password2 = form.get('cpassword')
+        if (password1 && password2 && password1.value !== password2.value && password2.value !== '') {
+          password2?.setErrors({ passwordMismatch: true })
+        } else {
+          // password2?.setErrors(null)
+        }
+    
       }
-  
-    }
+
 
   onSubmit() {
     if(this.addUserForm.valid && this.token !== null){
@@ -50,7 +58,7 @@ export class CreateUserComponent {
         password : this.addUserForm.controls['password'].value,
         // confirmPw : this.addUserForm.controls.cpassword.value
       }
-      this.auth.postData(UserData, this.apiUrl, this.token).subscribe((res: any)=>{
+        this.auth.postData(UserData, this.apiUrl, this.token).subscribe((res: any)=>{
         console.log(res);
       },
       (error) => {
@@ -75,4 +83,6 @@ export class CreateUserComponent {
     this.dialogRef.close(UserData); //for closing the modal
     }
   }
+
 }
+

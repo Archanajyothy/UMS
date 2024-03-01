@@ -2,6 +2,9 @@ import { Component, AfterViewInit, ViewChild, OnInit} from '@angular/core';
 import { MatTableDataSource} from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { AuthService } from '../../../services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateUserComponent } from '../create-user/create-user.component';
+
 
 export interface UserData {
   id: number;
@@ -23,9 +26,9 @@ export class TableComponent implements AfterViewInit, OnInit{
   dataSource = new MatTableDataSource<any>([this.userArray]);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  apiUrl = '/admin/users'
+  apiUrl = '/admin/users' 
   token = localStorage.getItem('token')
-  constructor(private auth : AuthService){}
+  constructor(private auth : AuthService, private dialog : MatDialog){}
 
   ngOnInit(): void {
     this.auth.getData(this.apiUrl, this.token).subscribe((res: any) => {
@@ -37,6 +40,17 @@ export class TableComponent implements AfterViewInit, OnInit{
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+  
+  openDialog(element: any){
+    const dialogRef = this.dialog.open(CreateUserComponent, {
+      data: { element, editMode: true }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      // Perform any action after dialog is closed, if needed
+    });
   }
 
   deleteUser(userId: number): void {

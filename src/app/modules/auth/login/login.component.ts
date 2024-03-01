@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
           console.log(res);
           localStorage.setItem('token',res.data.user.accessToken)
           localStorage.setItem('role',res.data.user.role)
+          localStorage.setItem('id',res.data.user.id)
           if (res.data.user.accessToken && (res.data.user.role === 'admin' || res.data.user.role === 'supervisor')) {
             this.route.navigate(['dashboard/admin']);
           } else {

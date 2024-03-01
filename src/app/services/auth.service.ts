@@ -45,19 +45,10 @@ export class AuthService {
   }
 
 
-
-  // postData(data: any, apiUrl: any, token: any){
-  //   const headers = new HttpHeaders({
-  //     'Content-Type': 'application/json',
-  //     'Authorization': `Bearer ${token}`,
-  //   })
-  //   this.api = environment.baseUrl+apiUrl
-  //   console.log(this.api); 
-  //   return this.http.post(this.api,data,{headers})
-  // }
-
-  // isLoggedIn(){
-  //   return !!localStorage.getItem('token')
-  // }
+  // Function to send PATCH request to update user data
+  patchUserData(userId: number, userData: any, token: string): Observable<any> {
+    const url = `${environment.baseUrl}/admin/users/${userId}`;
+    return this.http.patch(url, userData, { headers: { Authorization: `Bearer ${token}` } });
+  }
 
 }
