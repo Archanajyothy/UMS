@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   apiUrl= '/auth/login'
   hide: boolean = true;
   errorMessage: string = '';
+  showSpinner = false;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private route : Router){}
 
@@ -35,6 +36,7 @@ export class LoginComponent implements OnInit {
 
   submitForm(){
     if(this.loginForm.valid){
+      this.showSpinner = true;
         const loginData = {
           email : this.loginForm.controls.email.value, //the keys of the object should be same as the keys in the backend schema.
           password : this.loginForm.controls.password.value
@@ -42,6 +44,7 @@ export class LoginComponent implements OnInit {
         //console.log(loginData);
         this.authService.postData(loginData, this.apiUrl).subscribe((res:any) => {
           console.log(res);
+          this.showSpinner = false;
           localStorage.setItem('token',res.data.user.accessToken)
           localStorage.setItem('role',res.data.user.role)
           localStorage.setItem('id',res.data.user.id)

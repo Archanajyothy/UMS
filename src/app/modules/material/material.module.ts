@@ -12,6 +12,7 @@ import { MatTableModule} from '@angular/material/table';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -31,7 +32,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatTableModule,
     MatSidenavModule,
     MatListModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressSpinnerModule
   ],
   exports:[
     MatFormFieldModule,
@@ -46,7 +48,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatTableModule,
     MatSidenavModule,
     MatListModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressSpinnerModule
   ]
 })
 export class MaterialModule { }

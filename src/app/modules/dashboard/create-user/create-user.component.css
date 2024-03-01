@@ -96,6 +96,12 @@ h1{
     align-items: center;
   }
 
+  .spin{
+    position: fixed;
+    margin-top: -210px;
+    margin-left: 21%;
+  }
+
   /* @media (max-width: 575.98px){ 
     .container1 {
       display: flex;

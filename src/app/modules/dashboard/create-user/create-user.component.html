@@ -48,7 +48,7 @@
                       *ngIf="addUserForm.get('email')!.hasError('pattern')">
                           Enter valid email</small>
                   </span>
-                <div class="name1">
+                <div class="name1" >
                     <mat-form-field class="input-field inputs1">
                         <input matInput placeholder="Enter password" [type]="hide1 ? 'password' : 'text'" formControlName="password">
                         <mat-icon matSuffix (click)="hide1 = !hide1">{{hide1 ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -88,9 +88,14 @@
       </form>
     </div>
     <!-- create user form ends -->
+    <div class="spin">
+        <span *ngIf="showSpinner" class="example-margin">
+            <mat-spinner color="accent" diameter="50" strokeWidth="4"></mat-spinner>
+        </span>
+    </div>
 </mat-dialog-content>
 <mat-dialog-actions align ="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button type="submit" (click)="onSubmit()" [disabled]="addUserForm.invalid">Add</button>
+  <button mat-button mat-dialog-close mat-raised-button color="warn">Cancel</button>
+  <button mat-button type="submit" mat-raised-button color="primary" (click)="onSubmit()" [disabled]="addUserForm.invalid">Add</button>
 </mat-dialog-actions>
 

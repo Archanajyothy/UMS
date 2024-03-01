@@ -123,6 +123,12 @@
     margin-top: -20px;
   }
 
+  .spin{
+    position: fixed;
+    margin-top: -230px;
+    margin-left: 47%;
+  }
+
 
   @media (min-width: 320px) and (max-width: 575.98px) {
     .container1 {

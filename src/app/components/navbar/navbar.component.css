@@ -76,5 +76,14 @@ mat-sidenav-container{
     background: white;
   }
 
+  @media (min-width: 768px) and (max-width:1024px) {
+    .searchForm {
+        display: none;
+    }
+
+    .navbar-toggler-container {
+        order: -1; /* Move toggle button to the left */
+    }
+}
 
   

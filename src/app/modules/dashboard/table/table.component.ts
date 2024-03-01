@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { AuthService } from '../../../services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateUserComponent } from '../create-user/create-user.component';
+import { CommonService } from '../../../services/common.service';
 
 
 export interface UserData {
@@ -22,19 +23,41 @@ export interface UserData {
 })
 export class TableComponent implements AfterViewInit, OnInit{
   userArray = []
+  showSpinner = false;
   displayedColumns: string[] = ['id', 'firstName', 'email', 'role', 'edit' , 'delete'];
   dataSource = new MatTableDataSource<any>([this.userArray]);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   apiUrl = '/admin/users' 
   token = localStorage.getItem('token')
-  constructor(private auth : AuthService, private dialog : MatDialog){}
+  constructor(private auth : AuthService, private common : CommonService, private dialog : MatDialog){}
 
   ngOnInit(): void {
+    const dataLoader = setTimeout(()=>{
+      this.showSpinner = true
+    },)
+
     this.auth.getData(this.apiUrl, this.token).subscribe((res: any) => {
       console.log(res);
       this.dataSource.data = res?.data?.users;
       console.log('from table');
+      
+      setTimeout(() => { //closes the spinner
+        this.showSpinner = false
+        clearTimeout(dataLoader);
+        console.log('Timeout cleared after 2 seconds');
+      }, 2000);
+
+      this.common.behaviorSubject.subscribe((res:any) => {
+        const newUser = res.data.user;
+        console.log(newUser,'from behavior');
+
+        if(res){
+          this.dataSource.data.push(newUser)
+          this.dataSource._updateChangeSubscription();
+        }
+        
+      })
     });
   }
 

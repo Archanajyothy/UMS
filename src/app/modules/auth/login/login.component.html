@@ -48,6 +48,11 @@
         <a [routerLink]="['signup']">Need an account? Sign up!</a>
     </div>
     </div>
+    <div class="spin">
+      <span *ngIf="showSpinner" class="example-margin">
+          <mat-spinner color="accent" diameter="50" strokeWidth="4"></mat-spinner>
+      </span>
+    </div>
   </div>
   
 
