@@ -8,5 +8,5 @@ export class CommonService {
 
   constructor() { }
 
-  behaviorSubject = new BehaviorSubject([])
+  behaviorSubject = new BehaviorSubject(false)
 }

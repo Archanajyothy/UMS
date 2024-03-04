@@ -70,9 +70,10 @@ export class CreateUserComponent {
         this.auth.patchUserData(this.data.element.id , UserData, this.token).subscribe(
           (res: any) => {
             console.log(res,'from patch');
-            this.common.behaviorSubject.next(res);
-            this.showSpinner = false;
+            this.common.behaviorSubject.next(true);
             this.dialogRef.close(UserData);
+            this.showSpinner = false;
+
           },
           (error) => {
             console.error('Error updating user:', error);
@@ -83,7 +84,7 @@ export class CreateUserComponent {
         this.auth.postData(UserData, this.apiUrl, this.token).subscribe(
           (res: any) => {
             console.log(res);
-            this.common.behaviorSubject.next(res);
+            this.common.behaviorSubject.next(true);
             this.dialogRef.close(UserData); // Close the dialog upon successful creation
             this.showSpinner = false;
           },

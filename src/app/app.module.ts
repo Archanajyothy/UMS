@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { MaterialModule } from './modules/material/material.module';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 
 
@@ -15,6 +16,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
   declarations: [
     AppComponent,
     PageNotFoundComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,

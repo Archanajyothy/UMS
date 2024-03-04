@@ -5,6 +5,8 @@ import { AuthService } from '../../../services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateUserComponent } from '../create-user/create-user.component';
 import { CommonService } from '../../../services/common.service';
+import { Subscription } from 'rxjs';
+import { LogoutComponent } from '../../../components/logout/logout.component';
 
 
 export interface UserData {
@@ -30,30 +32,42 @@ export class TableComponent implements AfterViewInit, OnInit{
 
   apiUrl = '/admin/users' 
   token = localStorage.getItem('token')
-  constructor(private auth : AuthService, private common : CommonService, private dialog : MatDialog){}
+  behaviorSubjectSubscription: Subscription | undefined;
+  constructor(private auth : AuthService, private common : CommonService, private dialog : MatDialog,){}
 
   ngOnInit(): void {
-    const dataLoader = setTimeout(()=>{
-      this.showSpinner = true
-    },)
+    this.getUserData()
+    this.common.behaviorSubject.subscribe((res:any) => {
+      const user = res
+      if(user){
+        this.getUserData()
+      }
+    }) 
+  }
 
+  getUserData(){
+    // const dataLoader = setTimeout(()=>{
+    //   this.showSpinner = true
+    // },)
     this.auth.getData(this.apiUrl, this.token).subscribe((res: any) => {
       console.log(res);
       this.dataSource.data = res?.data?.users;
       console.log('from table');
       
-      setTimeout(() => { //closes the spinner
-        this.showSpinner = false
-        clearTimeout(dataLoader);
-        console.log('Timeout cleared after 2 seconds');
-      }, 2000);
+      // setTimeout(() => { //closes the spinner
+      //   this.showSpinner = false
+      //   clearTimeout(dataLoader);
+      //   console.log('Timeout cleared after 2 seconds');
+      // }, 2000);
 
       this.common.behaviorSubject.subscribe((res:any) => {
         const newUser = res.data.user;
         console.log(newUser,'from behavior');
 
         if(res){
-          this.dataSource.data.push(newUser)
+          console.log('after behavior, inside if ');
+          //this.dataSource.data.push(newUser)
+          this.dataSource.data = [...this.dataSource.data, newUser];
           this.dataSource._updateChangeSubscription();
         }
         
@@ -64,7 +78,7 @@ export class TableComponent implements AfterViewInit, OnInit{
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
-  
+
   openDialog(element: any){
     const dialogRef = this.dialog.open(CreateUserComponent, {
       data: { element, editMode: true }
