@@ -6,7 +6,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateUserComponent } from '../create-user/create-user.component';
 import { CommonService } from '../../../services/common.service';
 import { Subscription } from 'rxjs';
-import { LogoutComponent } from '../../../components/logout/logout.component';
 
 
 export interface UserData {
