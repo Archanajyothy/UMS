@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateUserComponent } from '../create-user/create-user.component';
 import { CommonService } from '../../../services/common.service';
 import { Subscription } from 'rxjs';
+import { DeleteModalComponent } from '../../../components/delete-modal/delete-modal.component';
 
 
 export interface UserData {
@@ -89,8 +90,22 @@ export class TableComponent implements AfterViewInit, OnInit{
     });
   }
 
+  openDeleteModal(userId: number): void {
+    const dialogRef = this.dialog.open(DeleteModalComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        // Perform logout action here
+        console.log('User confirmed logout');
+        this.deleteUser(userId);
+      } else {
+        console.log('User canceled logout');
+      }
+    });
+  }
+
   deleteUser(userId: number): void {
-    if (this.token !== null && confirm('Are you sure you want to delete this user?')) {
+    if (this.token !== null) {
       this.auth.deleteUser(userId, this.token).subscribe(
         (res) => {
           console.log('User deleted successfully');

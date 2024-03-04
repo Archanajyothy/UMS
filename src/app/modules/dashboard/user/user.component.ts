@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MaterialModule } from '../../material/material.module';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-user',
@@ -7,15 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserComponent implements OnInit{
   sidebar: boolean = true;
+  apiUrl = '/users/me'
+  token = localStorage.getItem('token')
+  userData = {}
 
-  constructor() {}
+  constructor(private auth : AuthService) {}
   
   toggleSidebar(){
     this.sidebar = !this.sidebar;
   }
   
   ngOnInit(): void {
-    
+    this.auth.getData(this.apiUrl, this.token).subscribe((res: any)=>{
+      this.userData = res.data.user;
+      console.log(this.userData);
+      
+    })
+  }
+
+  onEdit(){
+
   }
 
 }

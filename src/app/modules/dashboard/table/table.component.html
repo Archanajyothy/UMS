@@ -33,7 +33,7 @@
 
       <ng-container matColumnDef="delete">
         <th mat-header-cell *matHeaderCellDef> Delete </th>
-        <td mat-cell *matCellDef="let element"> <button (click)="deleteUser(element.id)"><i class="fa-solid fa-trash" style="color: #e91616;"></i></button> </td>
+        <td mat-cell *matCellDef="let element"> <button (click)="openDeleteModal(element.id)"><i class="fa-solid fa-trash" style="color: #e91616;"></i></button> </td>
         <!-- <td mat-cell *matCellDef="let element"> <button (click)="deleteUser(element.id)"><i class="fa-solid fa-trash" style="color: #e91616;"></i></button> </td> -->
       </ng-container>
   

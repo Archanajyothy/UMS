@@ -13,12 +13,67 @@
     overflow-x: hidden;
   }
 
+  
+
+  /* angular material css */
+  .example-card {
+    max-width: 700px;
+    height: 450px;
+    /* margin-bottom: 15px; */
+    background: #cfe3f0;
+    margin-left: 150px;
+    margin-top: 50px;
+  }
+
+  mat-card-title{
+    font-size: 40px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 
+                 'Lucida Grande', 'Lucida Sans Unicode', 
+                  Geneva, Verdana, sans-serif;
+  }
+
+  .img1{
+    display: flex;
+    position: relative;
+    margin-bottom: 20px;
+    border-radius: 50%;
+    border-bottom-left-radius: 50%;
+    margin-right: 280px;
+    margin-top: 60px;
+    width: 100px;
+    height: 100px;
+  }
+  .mdc-card__media:last-child {
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+
+.name{
+  display: flex;
+  gap: 10px;
+}
+.inputs{
+  width: 340px;
+  background: transparent !important;
+}
+.email{
+  width: 670px;
+}
+.btn1{
+  margin-left: 45%;
+}
+.icon1{
+  display: inline;
+  margin-top: 125px;
+  position:absolute;
+  margin-left: 52%;
+}
 
   /* profile pic css */
-  .profile-container {
+  /* .profile-container {
     position: relative;
-    width: 100px; /* Adjust as needed */
-    height: 100px; /* Adjust as needed */
+    width: 100px; 
+    height: 100px; 
   }
   
   .profile-container img {
@@ -32,8 +87,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 24px; /* Adjust as needed */
+    font-size: 24px; 
     color: white;
     font-weight: bold;
-  }
+  } */
   

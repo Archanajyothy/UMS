@@ -17,4 +17,8 @@ import { TableComponent } from '../../modules/dashboard/table/table.component';
 export class LogoutComponent {
   constructor(public dialogRef: MatDialogRef<LogoutComponent>) {}
 
+  confirmLogout(confirm: boolean): void {
+    this.dialogRef.close(confirm);
+  }
+
 }
