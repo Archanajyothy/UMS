@@ -26,7 +26,7 @@ export class AuthService {
 
   postData(data: any, apiUrl: string, token?: string) {
     let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
+      // 'Content-Type': 'application/json',
     });
     if (token) {
       headers = headers.set('Authorization', `Bearer ${token}`);
@@ -44,6 +44,16 @@ export class AuthService {
     return this.http.delete(apiUrl, { headers });
   }
 
+  putData(apiUrl: string, data:object, token: any){
+    const url = `${environment.baseUrl}${apiUrl}`
+    const headers = new HttpHeaders(
+      {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    )
+    return this.http.put(url,data,{headers})
+  }
 
   // Function to send PATCH request to update user data
   patchUserData(userId: number, userData: any, token: string): Observable<any> {

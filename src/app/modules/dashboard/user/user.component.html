@@ -1,37 +1,48 @@
 <app-navbar (toggle)="toggleSidebar()"></app-navbar>
 
-<mat-drawer-container class="sidebar-container">
-    <mat-drawer class="sidebar" mode="side" [opened] = "sidebar">
-        <app-sidebar></app-sidebar>
-    </mat-drawer>
-    <mat-drawer-content>
-        <!-- Cards with media area -->
-        <mat-card class="example-card">
-            <mat-card-header>
-            <mat-card-title-group>
-                <mat-card-title>Edit Profile </mat-card-title>
-                <img mat-card-lg-image  class="img1" src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
-                <mat-icon class="icon1">add_a_photo</mat-icon>
-            </mat-card-title-group>
-            </mat-card-header>
-            <mat-card-content>
-                <div class="name">
-                    <mat-form-field class="inputs">
-                        <mat-label>First Name</mat-label>
-                        <input matInput>
-                    </mat-form-field>
-                    <mat-form-field class="inputs">
-                        <mat-label>Last Name</mat-label>
-                        <input matInput>
-                    </mat-form-field> 
-                </div>
-                <mat-form-field class="email">
-                    <mat-label>Email</mat-label>
-                    <input matInput>
-                </mat-form-field> 
-                <button class="btn1" mat-raised-button color="primary" (click)="onEdit()">Edit
-                    <mat-icon>edit</mat-icon></button>
-            </mat-card-content>
-        </mat-card>
-    </mat-drawer-content>
-</mat-drawer-container>
+
+    <mat-drawer-container class="sidebar-container">
+        <mat-drawer class="sidebar" mode="side" [opened] = "sidebar">
+            <app-sidebar></app-sidebar>
+        </mat-drawer>
+        <mat-drawer-content>
+            <!-- Cards with media area -->
+                <mat-card class="example-card">
+                    <form [formGroup]="userForm" (ngSubmit)="onEdit()">
+                    <mat-card-header>
+                    <mat-card-title-group>
+                        <mat-card-title>Edit Profile </mat-card-title>
+                        <img mat-card-lg-image  class="img1" [src]="profileImageUrl" >
+                        <button mat-icon-button class="icon1" (click)="fileInput.click()" [hidden]="!editMode">
+                            <mat-icon class="icon1">add_a_photo</mat-icon>
+                        </button>
+                        <input type="file" #fileInput style="display:none" (change)="onFileSelected($event)">
+                    </mat-card-title-group>
+                    </mat-card-header>
+                    <mat-card-content>
+                            <div class="name">
+                                <mat-form-field class="inputs">
+                                    <mat-label>First Name</mat-label>
+                                    <input matInput formControlName="firstName" placeholder="First Name"
+                                    [value] = "userData.firstName">
+                                </mat-form-field>
+                                <mat-form-field class="inputs">
+                                    <mat-label>Last Name</mat-label>
+                                    <input matInput formControlName="lastName" placeholder="Last Name"
+                                    [value] = "userData.lastName">
+                                </mat-form-field> 
+                            </div>
+                            <mat-form-field class="email">
+                                <mat-label>Email</mat-label>
+                                <input matInput formControlName="email" placeholder="Email" readonly>
+                            </mat-form-field> 
+                            <button class="btn1" mat-raised-button color="primary" [hidden]="editMode" (click)="onEdit()">Edit
+                                <mat-icon>edit</mat-icon></button>
+                            <button class="btn2" mat-raised-button color="primary" color="warn" [hidden]="!editMode" (click) = "onClose()" mat-dialog-close >Cancel</button>
+                            <button class="btn3" mat-raised-button color="primary" [hidden]="!editMode" (click)="updateButtonClicked()">Update <mat-icon>edit</mat-icon></button>
+                    </mat-card-content>
+                </form>
+                </mat-card>
+        </mat-drawer-content>
+    </mat-drawer-container>
+
