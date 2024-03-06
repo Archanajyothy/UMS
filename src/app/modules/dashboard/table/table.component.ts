@@ -126,6 +126,16 @@ export class TableComponent implements AfterViewInit, OnInit{
     }
 }
 
+onSearch(searchValue: string){
+  const api = `/admin/users?limit=10&page=1&search=${searchValue}`
+  this.auth.getData(api, this.token).subscribe((res: any) => {
+    console.log(res);
+    this.dataSource.data = res?.data?.users;
+    console.log('search');
+   
+  });
+}
+
 }
 
 

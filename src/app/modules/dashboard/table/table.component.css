@@ -10,6 +10,7 @@
 
 table {
   width: 900px;
+  margin-top: 50px;
 }
 
 .fa-trash {
@@ -30,4 +31,11 @@ button {
   margin-top: -190px;
   margin-left: 45%;
   background: transparent !important;
+}
+.search{
+  margin-left: 50px;
+  margin-top: 75px;
+  width: 400px;
+  border-radius: 10px;
+  box-shadow: 1px;
 }

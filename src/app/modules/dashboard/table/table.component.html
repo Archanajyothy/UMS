@@ -1,7 +1,16 @@
 <div class="container1">
+
   <div class="mat-elevation-z8">
+    <!-- search-box -->
+    <div>
+      <mat-form-field class="search">
+        <input matInput placeholder="Search" #searchInput (keyup.enter)="onSearch(searchInput.value)">
+        <button mat-button matSuffix (click)="onSearch(searchInput.value)">
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
     <table mat-table [dataSource]="dataSource">
-  
       <!-- Position Column -->
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef> ID </th>
@@ -53,6 +62,4 @@
       </span>
     </div>
   </div>
-  
-
-</div>
+</div> 

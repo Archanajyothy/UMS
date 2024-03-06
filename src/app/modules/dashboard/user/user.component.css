@@ -81,6 +81,9 @@ mat-card-title{
   /* margin-left: 120%; */
   color: rgb(100, 98, 98)
 }
+.email{
+  color: gray !important;
+}
 
   /* profile pic css */
   /* .profile-container {

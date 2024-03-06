@@ -48,7 +48,7 @@ export class UserComponent implements OnInit{
       // this.profileImageUrl = 'http://localhost:3000/' + res?.data?.user?.profilePictureUrl
       this.userForm = this.fb.group({
         firstName: [this.userData?.firstName, Validators.required],
-        lastName: [this.userData?.lastName, Validators.required],
+        lastName: [{value :this.userData?.lastName, disabled: true }, Validators.required],
         email: [this.userData?.email],
         profilePictureUrl : [this.userData.profilePictureUrl]
       });
@@ -80,6 +80,8 @@ export class UserComponent implements OnInit{
 
   onEdit(){
     this.editMode = true;
+    //this.userForm.get('firstName')?.enable();
+    this.userForm.get('lastName')?.enable();
   }
 
   onClose(){
@@ -115,7 +117,7 @@ export class UserComponent implements OnInit{
 //   this.editMode = false;
 // }
 
-updateButtonClicked(firstname:any, lastname: any) {
+updateButtonClicked() {
   if (this.selectedFile) {      
     const token = localStorage.getItem('token');
     if (token) {
@@ -154,8 +156,5 @@ updateButtonClicked(firstname:any, lastname: any) {
     }
   }
 }
-
-
-
 
 }
