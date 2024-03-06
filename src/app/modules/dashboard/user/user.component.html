@@ -23,23 +23,24 @@
                             <div class="name">
                                 <mat-form-field class="inputs">
                                     <mat-label>First Name</mat-label>
-                                    <input matInput formControlName="firstName" placeholder="First Name"
-                                    [value] = "userData.firstName">
+                                    <input matInput formControlName="firstName" #firstname placeholder="First Name"
+                                    [value] = "userData.firstName" [disabled]="!editMode">
                                 </mat-form-field>
                                 <mat-form-field class="inputs">
                                     <mat-label>Last Name</mat-label>
-                                    <input matInput formControlName="lastName" placeholder="Last Name"
-                                    [value] = "userData.lastName">
+                                    <input matInput formControlName="lastName" #lastname placeholder="Last Name"
+                                    [value] = "userData.lastName" [disabled]="!editMode">
                                 </mat-form-field> 
                             </div>
                             <mat-form-field class="email">
                                 <mat-label>Email</mat-label>
-                                <input matInput formControlName="email" placeholder="Email" readonly>
+                                <input matInput formControlName="email" placeholder="Email" readonly 
+                                [value]="userData.email" [disabled] = "true">
                             </mat-form-field> 
                             <button class="btn1" mat-raised-button color="primary" [hidden]="editMode" (click)="onEdit()">Edit
                                 <mat-icon>edit</mat-icon></button>
                             <button class="btn2" mat-raised-button color="primary" color="warn" [hidden]="!editMode" (click) = "onClose()" mat-dialog-close >Cancel</button>
-                            <button class="btn3" mat-raised-button color="primary" [hidden]="!editMode" (click)="updateButtonClicked()">Update <mat-icon>edit</mat-icon></button>
+                            <button class="btn3" mat-raised-button color="primary" [hidden]="!editMode" (click)="updateButtonClicked(firstname, lastname)">Update <mat-icon>edit</mat-icon></button>
                     </mat-card-content>
                 </form>
                 </mat-card>

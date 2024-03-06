@@ -115,7 +115,7 @@ export class UserComponent implements OnInit{
 //   this.editMode = false;
 // }
 
-updateButtonClicked() {
+updateButtonClicked(firstname:any, lastname: any) {
   if (this.selectedFile) {      
     const token = localStorage.getItem('token');
     if (token) {
@@ -147,7 +147,7 @@ updateButtonClicked() {
             lastName: newData.lastName
           });
           // Reset the form and exit edit mode
-          this.userForm.reset();
+          //this.userForm.reset();
           this.editMode = false;
         }
       });
