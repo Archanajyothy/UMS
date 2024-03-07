@@ -24,7 +24,7 @@ interface ApiResponse {
 export class UserComponent implements OnInit{
   sidebar: boolean = true;
   apiUrl = '/users/me'
-  token = localStorage.getItem('token')
+  token = localStorage?.getItem('token')
   userData: any = {};
   userForm !: FormGroup;
   selectedFile = ''
@@ -60,7 +60,7 @@ export class UserComponent implements OnInit{
   onFileSelected(event:any){
     this.selectedFile = event.target.files[0]
     console.log(this.selectedFile);
-    let token = localStorage.getItem('token');
+    let token = localStorage?.getItem('token');
     if(token) {
       let apiUrl="/users/me/profile-picture"
       let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -119,7 +119,7 @@ export class UserComponent implements OnInit{
 
 updateButtonClicked() {
   if (this.selectedFile) {      
-    const token = localStorage.getItem('token');
+    const token = localStorage?.getItem('token');
     if (token) {
       // Get the form control values for first name and last name
       const firstName = this.userForm.get('firstName')?.value;

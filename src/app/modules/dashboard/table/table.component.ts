@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, ViewChild, OnInit} from '@angular/core';
 import { MatTableDataSource} from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { AuthService } from '../../../services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateUserComponent } from '../create-user/create-user.component';
@@ -26,13 +26,22 @@ export interface UserData {
 export class TableComponent implements AfterViewInit, OnInit{
   userArray = []
   showSpinner = false;
-  displayedColumns: string[] = ['id', 'firstName', 'email', 'role', 'edit' , 'delete'];
+  role = localStorage?.getItem('role');
+  userData: any =[]
+
+  itemsPerPage: any;
+  currentPage:any = 1;
+  totalCount: any;
+  maxPageLinks: number = 5;
+
+  displayedColumns: string[] = []
   dataSource = new MatTableDataSource<any>([this.userArray]);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   apiUrl = '/admin/users' 
-  token = localStorage.getItem('token')
+  token = localStorage?.getItem('token')
   behaviorSubjectSubscription: Subscription | undefined;
+  
   constructor(private auth : AuthService, private common : CommonService, private dialog : MatDialog,){}
 
   ngOnInit(): void {
@@ -46,32 +55,69 @@ export class TableComponent implements AfterViewInit, OnInit{
   }
 
   getUserData(){
-    // const dataLoader = setTimeout(()=>{
-    //   this.showSpinner = true
-    // },)
-    this.auth.getData(this.apiUrl, this.token).subscribe((res: any) => {
-      console.log(res);
-      this.dataSource.data = res?.data?.users;
-      console.log('from table');
-      
-      // setTimeout(() => { //closes the spinner
-      //   this.showSpinner = false
-      //   clearTimeout(dataLoader);
-      //   console.log('Timeout cleared after 2 seconds');
-      // }, 2000);
+    // loader start
+    const dataLoader = setTimeout(()=>{
+      this.showSpinner = true
+    },)
 
-      this.common.behaviorSubject.subscribe((res:any) => {
-        const newUser = res.data.user;
-        console.log(newUser,'from behavior');
+    setTimeout(() => { //closes the spinner
+          this.showSpinner = false
+          clearTimeout(dataLoader);
+          console.log('Timeout cleared after 2 seconds');
+        }, 2000); // Loader end
+  
+    if(this.role === 'admin'){
+      this.displayedColumns = ['id', 'firstName', 'lastName', 'role', 'edit' , 'delete'];
+      this.auth.getData(this.apiUrl, this.token).subscribe((res: any) => {
+        this.userData = res?.data?.users;
+        this.totalCount = res.data.totalCount
+        console.log('UserData',this.userData);
+        console.log('from table');
+        this.common.behaviorSubject.subscribe((res:any) => {
+          const newUser = res.data.user;
+          console.log(newUser,'from behavior');
+  
+          if(res){
+            console.log('after behavior, inside if ');
+            this.userData.push(newUser)
+          }
+          
+        })
+  
+      });
+    }
 
-        if(res){
-          console.log('after behavior, inside if ');
-          //this.dataSource.data.push(newUser)
-          this.dataSource.data = [...this.dataSource.data, newUser];
-          this.dataSource._updateChangeSubscription();
-        }
+    if(this.role === 'supervisor'){
+      const apiUrl = "/supervisor/users"
+      this.auth.getData(apiUrl, this.token).subscribe((res: any) => {
+        console.log(res);
+        this.userData = res?.data?.users
+        console.log('from table');
         
-      })
+        this.common.behaviorSubject.subscribe((res:any) => {
+          const newUser = res.data.user;
+          console.log(newUser,'from behavior');
+          if(res){
+            console.log('after behavior, inside if ');
+            this.userData.push(newUser)
+          }
+          
+        })
+  
+      });
+    }
+   
+  }
+
+
+  // Adjustments to the pageChange function
+  pageChanged(event: any) {
+    this.currentPage = event;
+    const api = `/admin/users?limit=10&page=${this.currentPage}`;
+    this.auth.getData(api, this.token).subscribe((res: any) => {
+      console.log(res);
+      this.userData = res?.data?.users;
+      this.totalCount = res?.data?.totalCount;
     });
   }
 
@@ -112,6 +158,9 @@ export class TableComponent implements AfterViewInit, OnInit{
           console.log(res);
           if (res?.status === 'true') {
             this.dataSource.data = this.dataSource.data.filter((user: any) => user.id !== userId);
+            this.userData = this.userData.filter((user: any) => user.id !== userId);
+            console.log('userdata after delete',this.userData);
+            
             // Refresh paginator after data change
             this.dataSource.paginator?.firstPage();
           } else {
@@ -131,6 +180,7 @@ onSearch(searchValue: string){
   this.auth.getData(api, this.token).subscribe((res: any) => {
     console.log(res);
     this.dataSource.data = res?.data?.users;
+    this.userData = res?.data?.users;
     console.log('search');
    
   });

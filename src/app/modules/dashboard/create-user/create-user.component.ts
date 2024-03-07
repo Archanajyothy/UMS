@@ -12,7 +12,7 @@ import { CommonService } from '../../../services/common.service';
 export class CreateUserComponent {
   errorMessage = ''
   apiUrl = '/admin/users'
-  token = localStorage.getItem('token')
+  token = localStorage?.getItem('token')
   hide1 = true;
   hide2 = true;
   editMode = false; // Flag to indicate if in edit mode or not

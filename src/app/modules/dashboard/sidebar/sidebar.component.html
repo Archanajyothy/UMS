@@ -1,8 +1,10 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav mode="side" [opened]="opened" >sidenav</mat-sidenav>
     <mat-nav-list>
+      <button mat-button class="btn1"  > <mat-icon>dashboard</mat-icon>
+      Dashboard</button>
       <button mat-button class="btn1"(click)="openDialog()" 
-      *ngIf="role === 'admin'" ><i class="fa-solid fa-user-plus"></i>
+      *ngIf="role === 'admin'" ><mat-icon>queue</mat-icon>
       Add User</button>
       <button mat-button class="btn1"(click)="logout()" 
       *ngIf="role !== 'admin'" ><i class="fa-solid fa-right-from-bracket"></i>

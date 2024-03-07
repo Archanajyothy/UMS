@@ -7,7 +7,6 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from '../../services/auth.interceptor';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 
@@ -25,9 +24,6 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     ReactiveFormsModule,
     MaterialModule,  
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor,
-    multi: true
-  },]
+  providers: []
 })
 export class AuthModule { }

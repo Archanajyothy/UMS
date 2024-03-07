@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
-  role = localStorage.getItem('role')
+  role = localStorage?.getItem('role')
   opened = false;
   
   constructor( public dialog: MatDialog, private router: Router ){}
@@ -28,8 +28,8 @@ export class SidebarComponent {
   }
 
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('role');
+    localStorage?.removeItem('token');
+    localStorage?.removeItem('role');
     this.router.navigate(['']);
   }
 }

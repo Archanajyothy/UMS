@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder, private authService: AuthService, private route : Router){}
 
   ngOnInit(): void {
+    if (typeof localStorage !== 'undefined'){
     const token = localStorage.getItem('token')
     const role = localStorage.getItem('role')
     if (token && (role === 'admin' || role === 'supervisor')) {
@@ -27,6 +28,7 @@ export class LoginComponent implements OnInit {
     } else {
       this.route.navigate([''])
     }
+  }
   }
 
    loginForm = this.fb.group({
@@ -45,9 +47,9 @@ export class LoginComponent implements OnInit {
         this.authService.postData(loginData, this.apiUrl).subscribe((res:any) => {
           console.log(res);
           this.showSpinner = false;
-          localStorage.setItem('token',res.data.user.accessToken)
-          localStorage.setItem('role',res.data.user.role)
-          localStorage.setItem('id',res.data.user.id)
+            localStorage.setItem('token',res.data.user.accessToken)
+            localStorage.setItem('role',res.data.user.role)
+            localStorage.setItem('id',res.data.user.id)         
           if (res.data.user.accessToken && (res.data.user.role === 'admin' || res.data.user.role === 'supervisor')) {
             this.route.navigate(['dashboard/admin']);
           } else {

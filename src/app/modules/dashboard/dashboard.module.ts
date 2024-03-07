@@ -10,8 +10,7 @@ import { MaterialModule } from '../material/material.module';
 import { UserComponent } from './user/user.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SupervisorComponent } from './supervisor/supervisor.component';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -21,14 +20,14 @@ import { SupervisorComponent } from './supervisor/supervisor.component';
     SidebarComponent,
     TableComponent,
     UserComponent,
-    CreateUserComponent,
-    SupervisorComponent
+    CreateUserComponent
   ],
   imports: [
     CommonModule,
     DashboardRoutingModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPaginationModule
   ]
 })
 export class DashboardModule { }

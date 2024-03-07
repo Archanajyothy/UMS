@@ -2,7 +2,7 @@
 
   <div class="mat-elevation-z8">
     <!-- search-box -->
-    <div>
+    <div *ngIf="role === 'admin'">
       <mat-form-field class="search">
         <input matInput placeholder="Search" #searchInput (keyup.enter)="onSearch(searchInput.value)">
         <button mat-button matSuffix (click)="onSearch(searchInput.value)">
@@ -10,51 +10,47 @@
         </button>
       </mat-form-field>
     </div>
-    <table mat-table [dataSource]="dataSource">
-      <!-- Position Column -->
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> ID </th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-      </ng-container>
-  
-      <!-- Name Column -->
-      <ng-container matColumnDef="firstName">
-        <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.firstName}}</td>
-      </ng-container>
 
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef> Email </th>
-        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
-      </ng-container>
-  
-      <!-- Weight Column -->
-      <ng-container matColumnDef="role">
-        <th mat-header-cell *matHeaderCellDef> Role </th>
-        <td mat-cell *matCellDef="let element"> {{element.role}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="edit">
-        <th mat-header-cell *matHeaderCellDef> Edit </th>
-        <td mat-cell *matCellDef="let element"> <button (click)="openDialog(element)"><i class="fa-solid fa-pen-to-square"></i></button></td>
-      </ng-container>
-
-      <ng-container matColumnDef="delete">
-        <th mat-header-cell *matHeaderCellDef> Delete </th>
-        <td mat-cell *matCellDef="let element"> <button (click)="openDeleteModal(element.id)"><i class="fa-solid fa-trash" style="color: #e91616;"></i></button> </td>
-        <!-- <td mat-cell *matCellDef="let element"> <button (click)="deleteUser(element.id)"><i class="fa-solid fa-trash" style="color: #e91616;"></i></button> </td> -->
-      </ng-container>
-  
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Last Name</th>
+          <th>Role</th>
+          <th *ngIf="role === 'admin'">Edit</th>
+          <th *ngIf="role === 'admin'">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of userData | paginate: {
+                itemsPerPage: itemsPerPage,
+                currentPage: currentPage,
+                totalItems: totalCount
+              };
+        let i = index">
+          <td>{{user.id}}</td>
+          <td>{{user.firstName}}</td>
+          <td>{{user.lastName}}</td>
+          <td>{{user.role}}</td>
+          <td *ngIf="role === 'admin'">
+            <button (click)="openDialog(user)">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+          </td>
+          <td *ngIf="role === 'admin'">
+            <button (click)="openDeleteModal(user.id)">
+              <i class="fa-solid fa-trash" style="color: #e91616;"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
     </table>
-  
-    <mat-paginator [pageSizeOptions]="[10, 20, 30]"
-                   showFirstLastButtons
-                   [pageSize] = "10"
-                   aria-label="Select page of periodic elements">
-    </mat-paginator>
+    
+    <div class="pagination-controls">
+      <pagination-controls (pageChange)="pageChanged($event)" [maxSize]="maxPageLinks" >
+      </pagination-controls>
+    </div>
 
     <div class="spin">
       <span *ngIf="showSpinner" class="example-margin">

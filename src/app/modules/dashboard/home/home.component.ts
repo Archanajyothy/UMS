@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class HomeComponent {
 
   sidebar: boolean = true;
-  role = localStorage.getItem('role');
+  role = localStorage?.getItem('role');
 
   constructor() {}
   
