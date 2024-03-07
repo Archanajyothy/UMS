@@ -24,7 +24,7 @@ import { DeleteModalComponent } from './components/delete-modal/delete-modal.com
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
   ],
   providers: [
     provideClientHydration(),

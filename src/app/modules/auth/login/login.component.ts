@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, ValidatorFn, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
+import { CommonService } from '../../../services/common.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
   errorMessage: string = '';
   showSpinner = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private route : Router){}
+  constructor(private fb: FormBuilder, private authService: AuthService,private common : CommonService, private route : Router){}
 
   ngOnInit(): void {
     if (typeof localStorage !== 'undefined'){

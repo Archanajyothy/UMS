@@ -32,7 +32,7 @@ export class TableComponent implements AfterViewInit, OnInit{
   itemsPerPage: any;
   currentPage:any = 1;
   totalCount: any;
-  maxPageLinks: number = 5;
+  maxPageLinks: number = 4;
 
   displayedColumns: string[] = []
   dataSource = new MatTableDataSource<any>([this.userArray]);
